@@ -12,11 +12,11 @@ module.exports = {
       error_file: "./logs/error.log", // Error log
       env: {
         NODE_ENV: "development",
-        PORT: 3000,
+        PORT: 8000,
       },
       env_production: {
         NODE_ENV: "production",
-        PORT: 3000,
+        PORT: 8000,
       }
     }
   ]
