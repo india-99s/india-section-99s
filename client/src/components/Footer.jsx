@@ -178,7 +178,7 @@ export default function Footer() {
           </div>
 
           <div className="text-sm text-gray-500 text-center pb-1">
-            Designed and Developed by SPARK SWIFT
+            Designed and Developed by SPARK SHIFT
           </div>
         </div>
       </footer>
