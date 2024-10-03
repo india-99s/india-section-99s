@@ -99,7 +99,7 @@ export default function Slider() {
                 </Carousel>
             </div>
             <div className="w-[90%] mx-auto mb-36">
-                <marquee id='marquee' className="text-2xl font-semibold font-san" loop="5" direction="right-to-left">Promoting the advancement of aviation through education, scholarships, and mutual support while honoring our unique history and sharing our passion for flight</marquee>
+                <marquee id='marquee' className="text-2xl font-semibold py-2" loop="5" direction="right-to-left">Promoting the advancement of aviation through education, scholarships, and mutual support while honoring our unique history and sharing our passion for flight</marquee>
             </div>
         </div>
     );
