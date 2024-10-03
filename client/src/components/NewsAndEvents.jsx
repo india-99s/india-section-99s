@@ -45,7 +45,7 @@ export default function NewsAndEvents() {
                 <span className="inline-block w-1 h-1 rounded-full bg-blue-800 ml-1"></span>
             </div>
             <div className='text-right px-10'>
-                <Link to={'/news_and_events'} className="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg text-blue-900 hover:underline"> See More News & Event...</Link>
+                <Link to={'/news_and_events'} className="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold rounded-lg text-blue-900 hover:underline"> See More News & Events...</Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {limitedEvents.map((event) => (
