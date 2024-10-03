@@ -86,7 +86,7 @@ const Feedback = () => {
             Hear it from our own 99s
           </h1>
           <h3 className="text-xl mb-5 font-light">
-            Airline Pilots, Glider Pilots, Helicopter Pilots, Sea-Plane Pilots,
+            Airline Pilots, Glider Pilots, Helicopter Pilots, Seaplane Pilots,
             Instructor Pilots, Air Traffic Controllers, Engineers
           </h3>
           <div className="text-center">
