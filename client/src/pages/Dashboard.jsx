@@ -18,7 +18,7 @@ export default function Dashboard() {
   }, [location.search]);
 
   return (
-    <div className='min-h-screen flex flex-col md:flex-row pt-[18%]'>
+    <div className='min-h-screen flex flex-col md:flex-row pt-[28%] sm:pt-[10%] '>
       {tab === 'member' && <DashMember />}
       {tab === 'gallery' && <DashGallery />}
       {tab === 'event' && <DashEvent />}
