@@ -68,8 +68,8 @@ export default function DashGallery() {
     };
 
     return (
-        <div className='flex overflow-x-scroll md:mx-auto p-3 my-40 sm:my-5'>
-            <Link to={'/dashboard?tab=add-gallery'} className="fixed top-48 left-5 px-2 text-4xl bg-black text-white ease-in-out duration-700 rounded-full  hover:text-black hover:bg-white border-2 border-black">+</Link>
+        <div className='flex overflow-x-scroll md:mx-auto p-3 my-20 sm:my-5'>
+            <Link to={'/dashboard?tab=add-gallery'} className="fixed z-10 top-48 left-5 px-2 text-4xl bg-black text-white ease-in-out duration-700 rounded-full  hover:text-black hover:bg-white border-2 border-black">+</Link>
 
             <div className="py-8">
                 {gallery.length > 0 ? (
