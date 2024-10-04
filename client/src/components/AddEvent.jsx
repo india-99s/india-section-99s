@@ -8,8 +8,9 @@ import {
     uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
+import { IoArrowBack } from "react-icons/io5";
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 // Initialize storage once
@@ -127,6 +128,7 @@ export default function AddEvent() {
 
     return (
         <main className="p-3 max-w-6xl mx-auto">
+ <Link to={'/dashboard?tab=event'} className="fixed z-10 top-48 left-5 text-4xl bg-black text-white ease-in-out duration-700 rounded-full  hover:text-black hover:bg-white border-2 border-black"><IoArrowBack /></Link>
             <h1 className="font-medium text-3xl leading-[1.1] text-center my-10 text-black">
                 Create a <span className="text-blue-800">News & Event...</span>
             </h1>
