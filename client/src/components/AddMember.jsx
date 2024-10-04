@@ -98,7 +98,7 @@ export default function AddMember() {
 
     return (
         <section className=" w-full pt-[30%] md:pt-[4%]">
-            <Link to={'/dashboard?tab=member'} className="fixed top-48 left-5 text-4xl bg-black text-white ease-in-out duration-700 rounded-full  hover:text-black hover:bg-white border-2 border-black"><IoArrowBack /></Link>
+            <Link to={'/dashboard?tab=member'} className="fixed z-10 top-48 left-5 text-4xl bg-black text-white ease-in-out duration-700 rounded-full  hover:text-black hover:bg-white border-2 border-black"><IoArrowBack /></Link>
             <h1 className="font-semibold text-3xl leading-[1.1] sm:text-2xl md:text-5xl justify-between text-center mb-2 text-black">Add  <span className="text-blue-800">Member...</span> </h1>
 
             <div className="w-96 m-auto bg-gray-300 bg-opacity-60 shadow-lg px-10 py-10  backdrop-blur-sm rounded-xl bg-white/30">
