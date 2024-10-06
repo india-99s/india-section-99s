@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { IoArrowBack } from "react-icons/io5";
 import { useState, useCallback } from 'react';
 import {
     deleteObject,
@@ -8,7 +9,6 @@ import {
     uploadBytesResumable,
 } from 'firebase/storage';
 import { app } from '../firebase';
-import { IoArrowBack } from "react-icons/io5";
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -30,80 +30,101 @@ export default function AddEvent() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const handleImageSubmit = useCallback(async () => {
-        if (files.length === 0 || files.length + formData.imageUrls.length > 6) {
-            setImageUploadError('You can only upload 6 images per listing');
-            return;
-        }
-        setUploading(true);
-        setImageUploadError(false);
+    const handleImageSubmit = (e) => {
+        if (files.length > 0 && files.length + formData.imageUrls.length < 20) {
+            setUploading(true);
+            setImageUploadError(false);
+            const promises = [];
 
-        try {
-            const uploadPromises = files.map(storeImage);
-            const uploadedUrls = await Promise.all(uploadPromises);
-            setFormData(prev => ({
-                ...prev,
-                imageUrls: [...prev.imageUrls, ...uploadedUrls],
-            }));
-        } catch {
-            setImageUploadError('Image upload failed (image size is too high)');
-        } finally {
+            for (let i = 0; i < files.length; i++) {
+                promises.push(storeImage(files[i]));
+            }
+            Promise.all(promises)
+                .then((urls) => {
+                    setFormData({
+                        ...formData,
+                        imageUrls: formData.imageUrls.concat(urls),
+                    });
+                    setImageUploadError(false);
+                    setUploading(false);
+                })
+                .catch((err) => {
+                    setImageUploadError('Image upload failed (image size is too high)');
+                    setUploading(false);
+                });
+        } else {
+            setImageUploadError('You can only upload 6 images per listing');
             setUploading(false);
         }
-    }, [files, formData.imageUrls]);
+    };
 
-    const storeImage = useCallback((file) => {
+    const storeImage = async (file) => {
         return new Promise((resolve, reject) => {
-            const fileName = `${new Date().getTime()}_${file.name}`;
+            const storage = getStorage(app);
+            const fileName = new Date().getTime() + file.name;
             const storageRef = ref(storage, fileName);
             const uploadTask = uploadBytesResumable(storageRef, file);
-
             uploadTask.on(
                 'state_changed',
-                null, // We can skip progress reporting here unless needed.
-                reject,
-                async () => {
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-                    resolve(downloadURL);
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log(`Upload is ${progress}% done`);
+                },
+                (error) => {
+                    reject(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        resolve(downloadURL);
+                    });
                 }
             );
         });
-    }, []);
+    };
 
-    const handleRemoveImage = useCallback(async (url, index) => {
-        setFormData(prev => ({
-            ...prev,
-            imageUrls: prev.imageUrls.filter((_, i) => i !== index),
-        }));
-
+    const handleRemoveImage = async (url, index) => {
+        setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+        });
         try {
             const imageRef = ref(storage, url);
+
+            // Delete the file
             await deleteObject(imageRef);
             console.log('File deleted successfully');
         } catch (error) {
             console.error('Error deleting file:', error);
         }
-    }, []);
+    };
 
-    const handleChange = useCallback((e) => {
-        const { id, value } = e.target;
-        setFormData(prev => ({ ...prev, [id]: value }));
-    }, []);
+    const handleChange = (e) => {
+
+        if (
+            e.target.type === 'text' ||
+            e.target.type === 'textarea'
+        ) {
+            setFormData({
+                ...formData,
+                [e.target.id]: e.target.value,
+            });
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formData.imageUrls.length < 1) {
-            setError('You must upload at least one image');
-            return;
-        }
-
-        setLoading(true);
-        setError(false);
-
         try {
+            if (formData.imageUrls.length < 1)
+                return setError('You must upload at least one image');
+
+            setLoading(true);
+            setError(false);
             const res = await fetch('/api/event/create', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
                     ...formData,
                     userRef: currentUser._id,
@@ -111,24 +132,23 @@ export default function AddEvent() {
             });
             const data = await res.json();
 
+            setLoading(false);
             if (data.success === false) {
                 setError(data.message);
-                toast.error('Failed to add event!!!');
-            } else {
-                toast.success('Event added successfully.');
-                navigate('/dashboard?tab=event');
+                toast.error("Failed to add event!!!")
             }
-        } catch (err) {
-            setError(err.message);
-            toast.error('Failed to add event!!!');
-        } finally {
+            toast.success("Event added successfully.")
+            navigate('/dashboard?tab=event');
+        } catch (error) {
+            setError(error.message);
             setLoading(false);
+            toast.error("Failed to add event!!!")
         }
     };
 
     return (
         <main className="p-3 max-w-6xl mx-auto">
- <Link to={'/dashboard?tab=event'} className="fixed z-10 top-48 left-5 text-4xl bg-black text-white ease-in-out duration-700 rounded-full  hover:text-black hover:bg-white border-2 border-black"><IoArrowBack /></Link>
+            <Link to={'/dashboard?tab=event'} className="fixed z-10 top-48 left-5 text-4xl bg-black text-white ease-in-out duration-700 rounded-full  hover:text-black hover:bg-white border-2 border-black"><IoArrowBack /></Link>
             <h1 className="font-medium text-3xl leading-[1.1] text-center my-10 text-black">
                 Create a <span className="text-blue-800">News & Event...</span>
             </h1>
