@@ -15,6 +15,7 @@ export default function News_Event() {
       try {
         const res = await fetch('/api/event/get-all-event');
         const data = await res.json();
+       data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         setEvent(data)
 
         if (data.success === false) {
