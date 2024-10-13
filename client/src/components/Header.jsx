@@ -86,7 +86,7 @@ export default function Header() {
     <>
       <header className='bg-white z-50 w-full bg-opacity-60 shadow-lg  backdrop-blur-sm  bg-white/30 fixed py-4 '>
         <nav className='mx-auto flex max-w-7xl items-center justify-between lg:px-8'>
-          <Link to={'/'} className='sm:w-[12%] w-[80%]'>
+          <Link to={'/'} className='sm:w-[12%] w-[80%] px-2'>
             <img
               className='h-20 sm:h-28 w-full'
               alt='99s'
