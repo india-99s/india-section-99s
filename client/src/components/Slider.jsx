@@ -104,10 +104,11 @@ export default function Slider() {
                 </Carousel>
             </div>
 
-            <div className={fixed top-48 right-0 w-[20rem] p-4 flex gap-2 bg-gray-300 bg-opacity-60 z-50 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-transform ease-in-out duration-300 ${
-    popup ? 'translate-x-0' : 'translate-x-[16.5rem]'}>
+            <div className={`fixed top-48 right-0 w-[20rem] p-4 flex gap-2 bg-gray-300 bg-opacity-60 z-50 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-transform ease-in-out duration-300 ${
+    popup ? 'translate-x-0' : 'translate-x-[16.5rem]'
+  }`}>
                 {/* <div></div> */}
-                <div className="flex flex-col items-center gap-3 border-[#f6640f] border-2 rounded-lg text-blue-900">
+                <div className="flex flex-col items-center justify-between gap-3 border-[#f6640f] border-2 rounded-lg text-blue-900 pb-3">
                     <span>
                         {popup ?
                             <span onClick={() => setPopup(false)} className="cursor-pointer">
@@ -147,6 +148,7 @@ export default function Slider() {
                     </div>
                 </div>
             </div>
+
             <div className="w-[90%] mx-auto mb-36">
                 <marquee id='marquee' className="text-2xl font-semibold py-2" loop="5" direction="right-to-left">Promoting the advancement of aviation through education, scholarships, and mutual support while honoring our unique history and sharing our passion for flight</marquee>
             </div>
