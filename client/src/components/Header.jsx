@@ -316,7 +316,8 @@ export default function Header() {
           </DialogPanel>
         </Dialog>
       </header>
-      <div className='w-full h-10 text-center absolute top-[10rem] font-semibold'>
+
+      <div className='w-full h-10 text-center absolute top-[8rem] text-sm md:text-md md:top-[10rem] font-semibold'>
         Ninety-Nines India Aviation Conclave  2nd December 2024, New Delhi <span>
           <Link className='text-blue-600 shadow-lg p-2 rounded-lg ml-2' target='_blank' to={"https://docs.google.com/forms/d/e/1FAIpQLSdn7H0Z0ZcAXr35plc7yE4Kcq-PwI0P_GxvXVCswIpsAUmh0Q/viewform?usp=sf_link"}>Click here to register</Link>
         </span>
