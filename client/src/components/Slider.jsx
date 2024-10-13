@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Carousel, IconButton } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import image from "../data/event.png"
 import { useState } from "react";
 
 
@@ -34,7 +33,6 @@ export default function Slider() {
         { src: 'https://firebasestorage.googleapis.com/v0/b/fir-india-77ae4.appspot.com/o/Slider%2Fslide-21.jpg?alt=media&token=93a73eca-143f-42a4-a494-115a21546651' },
 
     ]
-    // -17.5rem
 
     return (
         <div className="">
@@ -107,6 +105,7 @@ export default function Slider() {
             </div>
 
             <div className={`w-[20rem] p-4 flex gap-2 absolute top-48 ${popup ? 'right-2' : 'right-[-16.5rem]'} bg-gray-300 bg-opacity-60 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-all ease-in-out duration-300`}>
+                {/* <div></div> */}
                 <div className="flex flex-col items-center gap-3 border-[#f6640f] border-2 rounded-lg text-blue-900">
                     <span>
                         {popup ?
@@ -135,7 +134,7 @@ export default function Slider() {
                     </span>
                 </div>
                 <div className="flex flex-col justify-evenly">
-                    <img src={image} className="w-full h-40 rounded-md cursor-pointer " />
+                    <img src={'https://firebasestorage.googleapis.com/v0/b/fir-india-77ae4.appspot.com/o/event.png?alt=media&token=6676c3ca-eda5-470b-b0bc-0ee31ea1b95f'} className="w-full h-40 rounded-md cursor-pointer " />
                     <div className="flex flex-col gap-1 justify-center items-center mt-2">
                         <Link
                             to={'https://drive.google.com/file/d/1BjtAtKDltsDY40CiEn21Ln_BpV3QZosA/view?usp=sharing'}
