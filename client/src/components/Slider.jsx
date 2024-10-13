@@ -104,7 +104,8 @@ export default function Slider() {
                 </Carousel>
             </div>
 
-            <div className={`w-[20rem] p-4 flex gap-2 absolute top-48 ${popup ? 'right-2' : 'right-[-16.5rem]'} bg-gray-300 bg-opacity-60 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-all ease-in-out duration-300`}>
+            <div className={fixed top-48 right-0 w-[20rem] p-4 flex gap-2 bg-gray-300 bg-opacity-60 z-50 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-transform ease-in-out duration-300 ${
+    popup ? 'translate-x-0' : 'translate-x-[16.5rem]'}>
                 {/* <div></div> */}
                 <div className="flex flex-col items-center gap-3 border-[#f6640f] border-2 rounded-lg text-blue-900">
                     <span>
