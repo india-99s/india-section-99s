@@ -407,7 +407,7 @@ export default function About() {
                   <span className="text-black font-medium flex justify-center">
                     {" "}
                     Capt. Anila Bhatia along with her daughter became the first
-                    mother-daughter women airline pilots of India.
+                    mother-daughter women pilots of India.
                   </span>
                 </p>
                 <img
