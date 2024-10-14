@@ -16,6 +16,7 @@ export default function Header() {
 
   const location = useLocation()
   const [tab, setTab] = useState('')
+  const [isLandscape, setIsLandscape] = useState(false)
 
   const handleSignOut = async () => {
     try {
@@ -82,19 +83,41 @@ export default function Header() {
     }
   ]
 
+  useEffect(() => {
+    const handleResize = () => {
+      // Only set isLandscape for mobile view (e.g., width <= 768px)
+      if (window.innerWidth <= 1024) {
+        setIsLandscape(window.innerWidth > window.innerHeight);
+      } else {
+        setIsLandscape(false); // Reset to false when not in mobile view
+      }
+    };
+
+    // Set initial orientation
+    handleResize()
+
+    // Add event listener to handle window resizing
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   return (
     <>
-      <header className='bg-white z-50 w-full bg-opacity-60 shadow-lg  backdrop-blur-sm  bg-white/30 fixed py-4 '>
+      <header className='bg-white z-50 w-full bg-opacity-60 shadow-lg backdrop-blur-sm bg-white/30 fixed py-4 '>
         <nav className='mx-auto flex max-w-7xl items-center justify-between lg:px-8'>
-          <Link to={'/'} className='sm:w-[12%] w-[80%] px-2'>
+          <Link to={'/'} className={`sm:w-[18%] w-[80%] ml-3 ${isLandscape ? 'sm:ml-10' : 'sm:ml-0'}`}>
             <img
-              className='h-20 sm:h-28 w-full'
+              className='h-20 sm:h-28 w-full object-contain'
               alt='99s'
               src={
                 'https://firebasestorage.googleapis.com/v0/b/fir-india-77ae4.appspot.com/o/WebMaterial%2Flogo.png?alt=media&token=4331b693-7010-4879-83c0-335e7a7a7e52'
               }
             />
           </Link>
+
           <div className='flex flex-col gap-2 items-center'>
             <Link to={'/'} className='sm:w-[50%] w-[80%]'>
               <img
@@ -193,11 +216,15 @@ export default function Header() {
           <div className='flex lg:hidden'>
             <button
               type='button'
-              onClick={() => setMobileMenuOpen(true)}
+              onClick= {() => setMobileMenuOpen(prev => !prev)}
+               // Toggle the mobile menu state
               className='inline-flex items-center justify-center rounded-md p-3 text-gray-700'
             >
-              <span className='sr-only'>Open main menu</span>
-              <Bars3Icon aria-hidden='true' className='h-6 w-6' />
+              {mobileMenuOpen ? (
+                <XMarkIcon aria-hidden='true' className='h-6 w-6' /> // Show cross icon when the menu is open
+              ) : (
+                <Bars3Icon aria-hidden='true' className='h-6 w-6' /> // Show hamburger icon when the menu is closed
+              )}
             </button>
           </div>
         </nav>
@@ -205,10 +232,10 @@ export default function Header() {
         <Dialog
           open={mobileMenuOpen}
           onClose={setMobileMenuOpen}
-          className='lg:hidden z-50'
+          className='lg:hidden z-40'
         >
           <div className='fixed inset-0 z-10' />
-          <DialogPanel className='fixed inset-y-0 right-0 z-10 sm:pt-[25%] pt-[40%] md:pt-[20%] w-full overflow-y-scroll bg-white px-6 py-6 sm:max-w-[15rem] sm:ring-1 sm:ring-gray-900/10'>
+          <DialogPanel className='fixed inset-y-0 z-10 right-0 sm:pt-[25%] pt-[40%] md:pt-[20%] w-full overflow-y-scroll bg-white px-6 py-6 sm:max-w-[15rem] sm:ring-1 sm:ring-gray-900/10'>
             <div className='flex flex-row justify-between'>
               {currentUser ? (
                 <Dropdown
@@ -298,13 +325,15 @@ export default function Header() {
                   <div className='flex gap-3'>
                     <Link
                       to={'https://www.ninety-nines.org/membership.htm'}
+                      onClick={() => setMobileMenuOpen(false)}
                       target='_blank'
                       className='w-[6rem] leading-6 border border-orange-800 rounded-xl py-2 px-4 lg:mx-0  text-sm text-white bg-orange-800 font-semibold transition-all duration-300 hover:bg-orange-600'
                     >
                       Join 99s
                     </Link>
                     <Link
-                      to={'/'}
+                      to={'/donate'}
+                      onClick={() => setMobileMenuOpen(false)}
                       className='leading-6 border border-blue-800 rounded-xl py-2 px-4 w-fit lg:mx-0  text-sm text-white bg-blue-800 font-semibold transition-all duration-300 hover:bg-blue-700'
                     >
                       Donate
@@ -316,12 +345,6 @@ export default function Header() {
           </DialogPanel>
         </Dialog>
       </header>
-
-      <div className='w-full h-10 text-center absolute top-[8rem] text-sm md:text-md md:top-[10rem] font-semibold'>
-        Ninety-Nines India Aviation Conclave  2nd December 2024, New Delhi <span>
-          <Link className='text-blue-600 shadow-lg p-2 rounded-lg ml-2' target='_blank' to={"https://docs.google.com/forms/d/e/1FAIpQLSdn7H0Z0ZcAXr35plc7yE4Kcq-PwI0P_GxvXVCswIpsAUmh0Q/viewform?usp=sf_link"}>Click here to register</Link>
-        </span>
-      </div>
     </>
   )
 }
