@@ -1,7 +1,7 @@
 export default function Donate() {
 
   return (
-    <div className="pt-[12%]">
+    <div className='pt-[35%] md:pt-[12%]'>
       <div id="contact">
         {/* Page heading and subheading */}
         <div className="mx-auto max-w-4xl space-y-4 text-center">
@@ -9,7 +9,7 @@ export default function Donate() {
             Empowering Women to Soar
           </h2>
 
-          <h3 className="sm:text-lg text-center leading-relaxed">
+          <h3 className="sm:text-lg text-center leading-relaxed px-4 md:py-0 ">
             Our Charitable Trust is engaged in activities related to Aviation education and
             awareness. We strive to undertake strictly educational, charitable and/or
             scientific activities in alignment with <br className="hidden lg:block"/> The Ninety-Nines, Inc.
