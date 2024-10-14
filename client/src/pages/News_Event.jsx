@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 export default function News_Event() {
 
   const [event, setEvent] = useState([])
+  const [isLandscape, setIsLandscape] = useState(false)
 
 
   useEffect(() => {
@@ -15,7 +16,7 @@ export default function News_Event() {
       try {
         const res = await fetch('/api/event/get-all-event');
         const data = await res.json();
-       data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         setEvent(data)
 
         if (data.success === false) {
@@ -31,9 +32,29 @@ export default function News_Event() {
     handleLoadEvent()
   }, [])
 
+  useEffect(() => {
+    const handleResize = () => {
+        // Only set isLandscape for mobile view (e.g., width <= 768px)
+        if (window.innerWidth <= 1024) {
+            setIsLandscape(window.innerWidth > window.innerHeight);
+        } else {
+            setIsLandscape(false); // Reset to false when not in mobile view
+        }
+    };
+
+    // Set initial orientation
+    handleResize()
+
+    // Add event listener to handle window resizing
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+        window.removeEventListener('resize', handleResize)
+    }
+}, [])
 
   return (
-    <div className="container mx-auto pt-[35%] sm:pt-[12%] px-10">
+    <div className={`container mx-auto pt-[35%] px-10 ${isLandscape ? `sm:pt-[18%]` : `sm:pt-[12%]`}`}>
       <h1 className="text-3xl font-bold mb-4"></h1>
       <h2 className=" font-semibold leading-[1.1] text-3xl sm:text-2xl md:text-5xl text-center"><Link to={'#News'}>News</Link> <span className="text-[#1252aa] text-2xl sm:text-xl md:text-4xl ">& </span> <Link to={'#event'}>Events</Link></h2>
       <div className="text-center mb-10">
