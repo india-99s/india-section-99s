@@ -10,6 +10,7 @@ export default function Contact () {
   const [email, setEmail] = useState('')
   const [number, setNumber] = useState('')
   const [message, setMessage] = useState('')
+  const [isLandscape, setIsLandscape] = useState(false)
 
   const [disableBtn, setDisableBtn] = useState(false)
 
@@ -40,12 +41,34 @@ export default function Contact () {
 
       setDisableBtn(false)
     }
+
+    useEffect(() => {
+      const handleResize = () => {
+          // Only set isLandscape for mobile view (e.g., width <= 768px)
+          if (window.innerWidth <= 1024) {
+              setIsLandscape(window.innerWidth > window.innerHeight);
+          } else {
+              setIsLandscape(false); // Reset to false when not in mobile view
+          }
+      };
+
+      // Set initial orientation
+      handleResize()
+
+      // Add event listener to handle window resizing
+      window.addEventListener('resize', handleResize)
+
+      return () => {
+          window.removeEventListener('resize', handleResize)
+      }
+  }, [])
+
   }
 
   return (
     <div
       id='contact'
-      className='px-4  bg-slate-50 py-20 bg-slate-50 pt-[42%] md:pt-[12%]'
+      className={`px-4  bg-slate-50 py-20 bg-slate-50 pt-[35%] ${isLandscape ? `md:pt-[20%]` : `md:pt-[12%]`}`}
     >
       {/* Page heading and subheading */}
       <div className='mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center'>
