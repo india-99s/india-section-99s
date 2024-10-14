@@ -7,6 +7,7 @@ export default function Gallery () {
   const [openModal, setOpenModal] = useState(false)
   const [gallery, setGallery] = useState([])
   const imageRefs = useRef([])
+  const [isLandscape, setIsLandscape] = useState(false)
 
   useEffect(() => {
     const handleLoadGallery = async () => {
@@ -27,6 +28,27 @@ export default function Gallery () {
 
     handleLoadGallery()
   }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+        // Only set isLandscape for mobile view (e.g., width <= 768px)
+        if (window.innerWidth <= 1024) {
+            setIsLandscape(window.innerWidth > window.innerHeight);
+        } else {
+            setIsLandscape(false); // Reset to false when not in mobile view
+        }
+    };
+
+    // Set initial orientation
+    handleResize()
+
+    // Add event listener to handle window resizing
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+        window.removeEventListener('resize', handleResize)
+    }
+}, [])
 
   const handleOpenModal = index => {
     setSlideNumber(index)
@@ -77,7 +99,7 @@ export default function Gallery () {
   }, [gallery])
 
   return (
-    <div className='pt-[30%] md:pt-[8%]'>
+    <div className={`pt-[23%] ${isLandscape ? `md:pt-[12%]` : `md:pt-[8%]`}`}>
       <section
         id='members'
         className='container mx-auto px-4 space-y-8 bg-slate-50 py-20 md:py-20 lg:py-20'
