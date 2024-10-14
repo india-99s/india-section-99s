@@ -75,7 +75,7 @@ export default function Slider() {
                     <Link className='text-blue-600 shadow-lg p-2 rounded-lg ml-2' target='_blank' to={"https://docs.google.com/forms/d/e/1FAIpQLSdn7H0Z0ZcAXr35plc7yE4Kcq-PwI0P_GxvXVCswIpsAUmh0Q/viewform?usp=sf_link"}>Click here to register</Link>
                 </span>
             </div>
-        <div className={`w-[90%] flex m-auto pt-[45%] ${isLandscape ? 'md:pt-[12%]' : 'md:pt-[4%]'} md:mb-5 mb-14`}>
+        <div className={`w-[90%] flex m-auto pt-[45%] ${isLandscape ? 'md:pt-[15%]' : 'md:pt-[4%]'} md:mb-5 mb-14`}>
                 <Carousel
                     className="rounded-xl overflow-y-visible"
                     autoplay={true}
