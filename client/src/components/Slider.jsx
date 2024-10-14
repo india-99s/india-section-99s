@@ -1,13 +1,47 @@
 /* eslint-disable react/no-unknown-property */
 import { Carousel, IconButton } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 
 export default function Slider() {
 
     const [popup, setPopup] = useState(true)
+    const [isLandscape, setIsLandscape] = useState(false)
+
+    useEffect(() => {
+        // Auto-collapse the popup after 5 seconds (5000 ms)
+        if (popup) {
+            const timer = setTimeout(() => {
+                setPopup(false);
+            }, 5000);
+
+            // Clear timeout if the component unmounts or popup state changes
+            return () => clearTimeout(timer);
+        }
+    }, [popup]);
+
+    useEffect(() => {
+        const handleResize = () => {
+            // Only set isLandscape for mobile view (e.g., width <= 768px)
+            if (window.innerWidth <= 1024) {
+                setIsLandscape(window.innerWidth > window.innerHeight);
+            } else {
+                setIsLandscape(false); // Reset to false when not in mobile view
+            }
+        };
+
+        // Set initial orientation
+        handleResize()
+
+        // Add event listener to handle window resizing
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
 
     const slider = [
         { src: 'https://firebasestorage.googleapis.com/v0/b/fir-india-77ae4.appspot.com/o/Slider%2Fslide-1.jpg?alt=media&token=3e1b8022-80ef-4cf5-b6e2-49d2ea870554' },
@@ -36,7 +70,12 @@ export default function Slider() {
 
     return (
         <div className="">
-            <div className="w-[90%] flex m-auto pt-[35%] md:pt-[4%] mb-20">
+            <div className='w-full h-10 text-center absolute top-[8rem] text-sm md:text-md md:top-[10rem] font-semibold'>
+                Ninety-Nines India Aviation Conclave  2nd December 2024, New Delhi <span>
+                    <Link className='text-blue-600 shadow-lg p-2 rounded-lg ml-2' target='_blank' to={"https://docs.google.com/forms/d/e/1FAIpQLSdn7H0Z0ZcAXr35plc7yE4Kcq-PwI0P_GxvXVCswIpsAUmh0Q/viewform?usp=sf_link"}>Click here to register</Link>
+                </span>
+            </div>
+        <div className={`w-[90%] flex m-auto pt-[45%] ${isLandscape ? 'md:pt-[12%]' : 'md:pt-[4%]'} md:mb-5 mb-14`}>
                 <Carousel
                     className="rounded-xl overflow-y-visible"
                     autoplay={true}
@@ -104,10 +143,7 @@ export default function Slider() {
                 </Carousel>
             </div>
 
-            <div className={`fixed top-48 right-0 w-[20rem] p-4 flex gap-2 bg-gray-300 bg-opacity-60 z-50 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-transform ease-in-out duration-300 ${
-    popup ? 'translate-x-0' : 'translate-x-[16.5rem]'
-  }`}>
-                {/* <div></div> */}
+            <div className={`fixed top-44 right-0 w-[20rem] p-4 flex gap-2 bg-gray-300 bg-opacity-60 z-40 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-transform ease-in-out duration-300 ${popup ? 'translate-x-0' : 'translate-x-[16.5rem]'}`}>
                 <div className="flex flex-col items-center justify-between gap-3 border-[#f6640f] border-2 rounded-lg text-blue-900 pb-3">
                     <span>
                         {popup ?
