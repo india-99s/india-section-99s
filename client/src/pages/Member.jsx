@@ -6,6 +6,28 @@ import { Link } from 'react-router-dom'
 export default function Member () {
   const [members, setMembers] = useState([])
   const [friends, setFriends] = useState([])
+  const [isLandscape, setIsLandscape] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+        // Only set isLandscape for mobile view (e.g., width <= 768px)
+        if (window.innerWidth <= 1024) {
+            setIsLandscape(window.innerWidth > window.innerHeight);
+        } else {
+            setIsLandscape(false); // Reset to false when not in mobile view
+        }
+    };
+
+    // Set initial orientation
+    handleResize()
+
+    // Add event listener to handle window resizing
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+        window.removeEventListener('resize', handleResize)
+    }
+}, [])
 
   useEffect(() => {
     const handleLoadMember = async () => {
@@ -87,7 +109,7 @@ export default function Member () {
   return (
     <section
       id='members'
-      className='container mx-auto px-4 space-y-8 bg-slate-50 py-20 md:py-20 lg:py-48 bg-slate-50 pt-[42%] md:pt-[8%]'
+      className={`container mx-auto px-4 space-y-8 bg-slate-50 py-20 md:py-20 lg:py-48 bg-slate-50 pt-[42%] ${isLandscape ? `md:pt-[19%]` : `md:pt-[8%]`} `}
     >
       {/* -------------Section Members------------- */}
       <div className='space-y-4'>
