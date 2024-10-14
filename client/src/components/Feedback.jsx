@@ -33,6 +33,7 @@ const Feedback = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
   const [openModal, setOpenModal] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,6 +42,27 @@ const Feedback = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+        // Only set isLandscape for mobile view (e.g., width <= 768px)
+        if (window.innerWidth <= 1024) {
+            setIsLandscape(window.innerWidth > window.innerHeight);
+        } else {
+            setIsLandscape(false); // Reset to false when not in mobile view
+        }
+    };
+
+    // Set initial orientation
+    handleResize()
+
+    // Add event listener to handle window resizing
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+        window.removeEventListener('resize', handleResize)
+    }
+}, [])
 
   const getVideoIndex = (index) => {
     return (currentIndex + index + videos.length) % videos.length;
@@ -78,7 +100,7 @@ const Feedback = () => {
   };
 
   return (
-    <div className="h-[100vh] w-[90%] flex flex-col justify-around gap-14 items-center m-auto overflow-hidden">
+    <div className={`h-[100vh] ${isLandscape ? `md:h-[180vh]` : `md:h-[100vh]`} w-[90%] flex flex-col justify-around gap-14 items-center m-auto overflow-hidden`}>
       {/* Heading and Subheading */}
       <div className="text-center mt-4">
         <div className="text-center max-w-2xl mx-auto">
@@ -112,9 +134,9 @@ const Feedback = () => {
             key={index + Math.random()}
             className={`absolute transition-transform duration-500 ${
               i === 2
-                ? "z-40"
-                : i === 1 || i === 3
                 ? "z-30"
+                : i === 1 || i === 3
+                ? "z-20"
                 : "z-0 animate-fadeIn"
             }`}
             style={{
