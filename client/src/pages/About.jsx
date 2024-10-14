@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Carousel, IconButton } from "@material-tailwind/react";
+import { useState, useEffect } from "react";
 
 const charter_members = [
   {
@@ -49,8 +50,33 @@ const aboutUsSlider = [
 ];
 
 export default function About() {
+
+  const [isLandscape, setIsLandscape] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+        // Only set isLandscape for mobile view (e.g., width <= 768px)
+        if (window.innerWidth <= 1024) {
+            setIsLandscape(window.innerWidth > window.innerHeight);
+        } else {
+            setIsLandscape(false); // Reset to false when not in mobile view
+        }
+    };
+
+    // Set initial orientation
+    handleResize()
+
+    // Add event listener to handle window resizing
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+        window.removeEventListener('resize', handleResize)
+    }
+}, [])
+
+
   return (
-    <section className="pt-[30%] md:pt-[8%]">
+    <section className={`pt-[30%] ${ isLandscape ? `md:pt-[15%]` : `md:pt-[10%]`}`}>
       <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4 ">
         {/* Component - About us */}
         {/* <h1 className="text-3xl lg:text-4xl font-bold leading-9 text-gray-800 pb-4 flex justify-center">About Us</h1> */}
