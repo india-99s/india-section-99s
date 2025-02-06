@@ -70,11 +70,7 @@ export default function Slider() {
 
     return (
         <div className="">
-            <div className='w-full h-10 text-center absolute top-[8rem] text-sm md:text-md md:top-[10rem] font-semibold'>
-                Ninety-Nines India Aviation Conclave  2nd December 2024, New Delhi <span>
-                    <Link className='text-blue-600 shadow-lg p-2 rounded-lg ml-2' target='_blank' to={"https://docs.google.com/forms/d/e/1FAIpQLSdn7H0Z0ZcAXr35plc7yE4Kcq-PwI0P_GxvXVCswIpsAUmh0Q/viewform?usp=sf_link"}>Click here to register</Link>
-                </span>
-            </div>
+            
         <div className={`w-[90%] flex m-auto pt-[45%] ${isLandscape ? 'md:pt-[15%]' : 'md:pt-[4%]'} md:mb-5 mb-14`}>
                 <Carousel
                     className="rounded-xl overflow-y-visible"
@@ -138,51 +134,7 @@ export default function Slider() {
                             className="h-[30rem] w-full object-cover
                              bg-center"
                         />))}
-
-
                 </Carousel>
-            </div>
-
-            <div className={`fixed top-48 right-0 w-[20rem] p-4 flex gap-2 bg-gray-300 bg-opacity-60 z-40 shadow-lg backdrop-blur-sm rounded-xl bg-white/30 transition-transform ease-in-out duration-300 ${popup ? 'translate-x-0' : 'translate-x-[16.5rem]'}`}>
-                <div className="flex flex-col items-center justify-between gap-3 border-[#f6640f] border-2 rounded-lg text-blue-900 pb-3">
-                    <span>
-                        {popup ?
-                            <span onClick={() => setPopup(false)} className="cursor-pointer">
-                                <svg fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="size-7">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </span>
-                            :
-                            <span onClick={() => setPopup(true)} className="cursor-pointer">
-                                <svg fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="size-7">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                                </svg>
-                            </span>
-                        }
-                    </span>
-                    <span className="flex flex-col items-center ">
-                        <span className="font-bold text-lg text-blue-900 -mb-2">U</span>
-                        <span className="font-bold text-lg text-blue-900 -mb-2">P</span>
-                        <span className="font-bold text-lg text-blue-900 -mb-2">C</span>
-                        <span className="font-bold text-lg text-blue-900 -mb-2">O</span>
-                        <span className="font-bold text-lg text-blue-900 -mb-2">M</span>
-                        <span className="font-bold text-lg text-blue-900 -mb-2">I</span>
-                        <span className="font-bold text-lg text-blue-900 -mb-2">N</span>
-                        <span className="font-bold text-lg text-blue-900 -mb-2">G</span>
-                    </span>
-                </div>
-                <div className="flex flex-col justify-evenly">
-                    <img src={'https://firebasestorage.googleapis.com/v0/b/fir-india-77ae4.appspot.com/o/event.png?alt=media&token=6676c3ca-eda5-470b-b0bc-0ee31ea1b95f'} className="w-full h-40 rounded-md cursor-pointer " />
-                    <div className="flex flex-col gap-1 justify-center items-center mt-2">
-                        <Link
-                            to={'https://drive.google.com/file/d/1BjtAtKDltsDY40CiEn21Ln_BpV3QZosA/view?usp=sharing'}
-                            target='_blank'
-                            className='w-fit text-center rounded-md py-1 px-2 lg:mx-0  text-sm  text-white bg-blue-600 font-semibold transition-all duration-300 hover:bg-blue-700'
-                        >
-                            Read More
-                        </Link>
-                    </div>
-                </div>
             </div>
 
             <div className="w-[90%] mx-auto mb-36">
